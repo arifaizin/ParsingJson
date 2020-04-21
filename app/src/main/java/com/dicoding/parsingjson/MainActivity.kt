@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.model.DataItem
+import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -49,20 +50,8 @@ class MainActivity : AppCompatActivity() {
         val dataArray = jsonObject.getJSONArray("data")
 
         for (i in 0 until dataArray.length()) {
-            val dataObject = dataArray.getJSONObject(i)
-            val id = dataObject.getInt("id")
-            val firstName = dataObject.getString("first_name")
-            val lastName = dataObject.getString("last_name")
-            val email = dataObject.getString("email")
-            val avatar = dataObject.getString("avatar")
-
-            val data = DataItem(
-                id = id,
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                avatar = avatar
-            )
+            val gson = Gson()
+            val data = gson.fromJson(dataArray.getJSONObject(i).toString(), DataItem::class.java)
 
             adapter.addUser(data)
         }
