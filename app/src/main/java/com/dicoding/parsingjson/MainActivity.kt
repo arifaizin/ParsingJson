@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.model.DataItem
+import com.dicoding.parsingjson.model.ResponseUser
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -46,13 +47,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseJson(response: String) {
-        val jsonObject = JSONObject(response);
-        val dataArray = jsonObject.getJSONArray("data")
-
-        for (i in 0 until dataArray.length()) {
-            val gson = Gson()
-            val data = gson.fromJson(dataArray.getJSONObject(i).toString(), DataItem::class.java)
-
+        val gson = Gson()
+        val responseUser = gson.fromJson(
+            response,
+            ResponseUser::class.java
+        )
+        val dataArray = responseUser.data as List<DataItem>
+        for (data in dataArray) {
             adapter.addUser(data)
         }
     }
