@@ -12,6 +12,16 @@ import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
+import retrofit2.Retrofit
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.dicoding.parsingjson.network.ApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,30 +41,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUser() {
-        val client = AsyncHttpClient()
-        val url = "https://reqres.in/api/users?page=1"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                val response = String(responseBody)
-                parseJson(response)
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://reqres.in/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(ApiService::class.java)
+        service.getListUsers("1").enqueue(object : Callback<ResponseUser> {
+            override fun onResponse(call: Call<ResponseUser>, response: Response<ResponseUser>) {
+                val dataArray = response.body()?.data as List<DataItem>
+                for (data in dataArray) {
+                    adapter.addUser(data)
+                }
             }
-
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_SHORT).show()
-                error.printStackTrace()
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
+                Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
         })
-    }
-
-    private fun parseJson(response: String) {
-        val gson = Gson()
-        val responseUser = gson.fromJson(
-            response,
-            ResponseUser::class.java
-        )
-        val dataArray = responseUser.data as List<DataItem>
-        for (data in dataArray) {
-            adapter.addUser(data)
-        }
     }
 }
