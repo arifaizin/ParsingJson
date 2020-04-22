@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.dicoding.parsingjson.model.DataItem
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
@@ -29,19 +30,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUser() {
-        val client = AsyncHttpClient()
+        val queue = Volley.newRequestQueue(this)
         val url = "https://reqres.in/api/users?page=1"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                val response = String(responseBody)
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            Response.Listener<String> { response ->
                 parseJson(response)
-            }
-
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+            },
+            Response.ErrorListener { error ->
                 Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_SHORT).show()
                 error.printStackTrace()
-            }
-        })
+            })
+        queue.add(stringRequest)
     }
 
     private fun parseJson(response: String) {
