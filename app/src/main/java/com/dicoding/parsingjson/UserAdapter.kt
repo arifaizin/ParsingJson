@@ -27,11 +27,6 @@ class UserAdapter(private val users: MutableList<DataItem>) :
         notifyItemInserted(users.lastIndex)
     }
 
-    fun clear() {
-        users.clear()
-        notifyDataSetChanged()
-    }
-
     override fun getItemCount(): Int = users.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {

@@ -48,10 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun parseJson(response: String) {
         val gson = Gson()
-        val responseUser = gson.fromJson(
-            response,
-            ResponseUser::class.java
-        )
+        val responseUser = gson.fromJson(response, ResponseUser::class.java)
         val dataArray = responseUser.data as List<DataItem>
         for (data in dataArray) {
             adapter.addUser(data)
