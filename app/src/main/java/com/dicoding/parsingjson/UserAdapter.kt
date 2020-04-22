@@ -15,21 +15,13 @@ class UserAdapter(private val users: MutableList<DataItem>) :
     RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_user, parent, false)
-        return ListViewHolder(
-            view
-        )
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_user, parent, false)
+        return ListViewHolder(view)
     }
 
     fun addUser(newUsers: DataItem) {
         users.add(newUsers)
         notifyItemInserted(users.lastIndex)
-    }
-
-    fun clear() {
-        users.clear()
-        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = users.size
@@ -51,6 +43,5 @@ class UserAdapter(private val users: MutableList<DataItem>) :
         var tvUserName: TextView = itemView.findViewById(R.id.itemName)
         var tvEmail: TextView = itemView.findViewById(R.id.itemEmail)
         var ivAvatar: ImageView = itemView.findViewById(R.id.itemAvatar)
-
     }
 }
