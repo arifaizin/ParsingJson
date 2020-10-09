@@ -38,9 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         client.enqueue(object : Callback<ResponseUser> {
             override fun onResponse(call: Call<ResponseUser>, response: Response<ResponseUser>) {
-                val dataArray = response.body()?.data as List<DataItem>
-                for (data in dataArray) {
-                    adapter.addUser(data)
+                if (response.isSuccessful) {
+                    val dataArray = response.body()?.data as List<DataItem>
+                    for (data in dataArray) {
+                        adapter.addUser(data)
+                    }
                 }
             }
 
