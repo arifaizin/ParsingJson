@@ -10,7 +10,7 @@ import retrofit2.http.*
 interface ApiService {
     //get list users with query
     @GET("search/users")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getListUsers(@Query("q") query: String): Call<GithubResponse>
 
     //get list user by id using path

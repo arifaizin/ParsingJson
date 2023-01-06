@@ -27,12 +27,12 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     init {
-        searchUser()
+        searchUser("arif")
     }
 
-    private fun searchUser() {
+    fun searchUser(query: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getListUsers("arif")
+        val client = ApiConfig.getApiService().getListUsers(query)
         client.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(call: Call<GithubResponse>, response: Response<GithubResponse>) {
                 if (response.isSuccessful) {

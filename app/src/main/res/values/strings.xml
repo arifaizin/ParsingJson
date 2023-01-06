@@ -3,4 +3,5 @@
     <string name="avatar">Avatar</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="search">Cari user GitHub di sini</string>
 </resources>
