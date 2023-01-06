@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Parsing Json</string>
+    <string name="app_name">Github User</string>
     <string name="avatar">Avatar</string>
     <string name="name">Name</string>
     <string name="email">Email</string>

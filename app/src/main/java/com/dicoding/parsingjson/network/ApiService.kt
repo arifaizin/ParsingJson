@@ -1,5 +1,6 @@
 package com.dicoding.parsingjson.network
 
+import com.dicoding.parsingjson.model.GithubResponse
 import com.dicoding.parsingjson.model.ResponseUser
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -8,8 +9,9 @@ import retrofit2.http.*
 
 interface ApiService {
     //get list users with query
-    @GET("api/users")
-    fun getListUsers(@Query("page") page: String): Call<ResponseUser>
+    @GET("search/users")
+    @Headers("Authorization: token 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")
+    fun getListUsers(@Query("q") query: String): Call<GithubResponse>
 
     //get list user by id using path
     @GET("api/users/{id}")

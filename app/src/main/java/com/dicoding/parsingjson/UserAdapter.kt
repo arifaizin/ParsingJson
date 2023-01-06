@@ -10,26 +10,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.parsingjson.model.DataItem
+import com.dicoding.parsingjson.model.ItemsItem
 
-class UserAdapter(private val users: MutableList<DataItem>) :
+class UserAdapter(private val users: List<ItemsItem>) :
     RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_list_user, parent, false)
-        return ListViewHolder(
-            view
-        )
-    }
-
-    fun addUser(newUsers: DataItem) {
-        users.add(newUsers)
-        notifyItemInserted(users.lastIndex)
-    }
-
-    fun clear() {
-        users.clear()
-        notifyDataSetChanged()
+        return ListViewHolder(view)
     }
 
     override fun getItemCount(): Int = users.size
@@ -38,18 +27,15 @@ class UserAdapter(private val users: MutableList<DataItem>) :
         val user = users[position]
 
         Glide.with(holder.itemView.context)
-            .load(user.avatar)
-            .apply(RequestOptions().override(80, 80).placeholder(R.drawable.icon_avatar))
-            .transform(CircleCrop())
+            .load(user.avatarUrl)
+            .circleCrop()
             .into(holder.ivAvatar)
 
-        holder.tvUserName.text = "${user.firstName} ${user.lastName}"
-        holder.tvEmail.text = user.email
+        holder.tvUserName.text = user.login
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvUserName: TextView = itemView.findViewById(R.id.itemName)
-        var tvEmail: TextView = itemView.findViewById(R.id.itemEmail)
         var ivAvatar: ImageView = itemView.findViewById(R.id.itemAvatar)
 
     }

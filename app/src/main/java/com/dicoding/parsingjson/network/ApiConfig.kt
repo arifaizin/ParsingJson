@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 //                    .addInterceptor(ChuckerInterceptor(context))
                     .build()
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("https://reqres.in/")
+                    .baseUrl("https://api.github.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build()

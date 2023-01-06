@@ -26,18 +26,7 @@
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/itemAvatar"
         app:layout_constraintTop_toTopOf="@id/itemAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/itemAvatar"
         tools:text="@string/name" />
-
-    <TextView
-        android:id="@+id/itemEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="#7E7E7E"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/itemName"
-        app:layout_constraintTop_toBottomOf="@+id/itemName"
-        tools:text="@string/email" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
