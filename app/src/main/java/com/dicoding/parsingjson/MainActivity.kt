@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.databinding.ActivityMainBinding
 import com.dicoding.parsingjson.model.GithubResponse
@@ -24,32 +26,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
         adapter = UserAdapter(arrayListOf())
 
         binding.rvUsers.setHasFixedSize(true)
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
         binding.rvUsers.adapter = adapter
 
-        getUser()
+        mainViewModel.listReview.observe(this) { users ->
+            binding.rvUsers.adapter = UserAdapter(users)
+        }
+        mainViewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
     }
 
-    private fun getUser() {
-        val client = ApiConfig.getApiService().getListUsers("arif")
-        binding.progressBar.visibility = View.VISIBLE
-
-        client.enqueue(object : Callback<GithubResponse> {
-            override fun onResponse(call: Call<GithubResponse>, response: Response<GithubResponse>) {
-                if (response.isSuccessful) {
-                    val dataArray = response.body()?.items as List<ItemsItem>
-                    binding.rvUsers.adapter = UserAdapter(dataArray)
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
-
-            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
-                t.printStackTrace()
-            }
-        })
-    }
 }
