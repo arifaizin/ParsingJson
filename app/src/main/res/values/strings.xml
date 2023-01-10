@@ -4,4 +4,8 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="search">Cari user GitHub di sini</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_followers">Followers</string>
+    <string name="title_following">Following</string>
 </resources>
