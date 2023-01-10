@@ -1,15 +1,15 @@
-package com.dicoding.parsingjson
+package com.dicoding.parsingjson.ui.list
 
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.parsingjson.R
 import com.dicoding.parsingjson.databinding.ActivityMainBinding
 
 
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.searchUser(query)
                 return true
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
