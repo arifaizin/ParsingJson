@@ -1,7 +1,6 @@
 package com.dicoding.parsingjson.ui.list
 
 import android.content.Intent
-import android.nfc.NfcAdapter.EXTRA_ID
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,6 @@ class UserAdapter(private val users: List<ItemsItem>) :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(users[position])
-        holder
     }
 
     inner class ListViewHolder(private val binding: ItemListUserBinding) :

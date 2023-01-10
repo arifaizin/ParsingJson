@@ -2,9 +2,7 @@ package com.dicoding.parsingjson.network
 
 import com.dicoding.parsingjson.model.DetailUserResponse
 import com.dicoding.parsingjson.model.GithubResponse
-import com.dicoding.parsingjson.model.ResponseUser
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import com.dicoding.parsingjson.model.ItemsItem
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -14,4 +12,10 @@ interface ApiService {
 
     @GET("users/{username}")
     fun getDetailUser(@Path("username") username: String): Call<DetailUserResponse>
+
+    @GET("users/{username}/followers")
+    fun getFollowers(@Path("username") username: String): Call<List<ItemsItem>>
+
+    @GET("users/{username}/following")
+    fun getFollowing(@Path("username") username: String): Call<List<ItemsItem>>
 }

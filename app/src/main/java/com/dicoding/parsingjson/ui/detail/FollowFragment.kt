@@ -5,14 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dicoding.parsingjson.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.databinding.FragmentFollowBinding
+import com.dicoding.parsingjson.model.ItemsItem
+import com.dicoding.parsingjson.ui.list.UserAdapter
 
 
 class FollowFragment : Fragment() {
     private var position: Int? = null
     private var username: String? = null
     private lateinit var binding: FragmentFollowBinding
+    private val detailViewModel by viewModels<DetailUserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +34,28 @@ class FollowFragment : Fragment() {
         }
 
         if (position == 1){
-            binding.testUsername.text = "Get Follower $username"
+            detailViewModel.getFollower(username.toString())
+            detailViewModel.listFollowers.observe(viewLifecycleOwner) {
+                showRecycler(it)
+            }
         } else {
-            binding.testUsername.text = "Get Following $username"
+            detailViewModel.getFollowing(username.toString())
+            detailViewModel.listFollowing.observe(viewLifecycleOwner) {
+                showRecycler(it)
+            }
+        }
+        detailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
+
+    private fun showRecycler(listItem: List<ItemsItem>) {
+        val adapter = UserAdapter(listItem)
+        binding.rvFollow.setHasFixedSize(true)
+        binding.rvFollow.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvFollow.adapter = adapter
+    }
+
 
     companion object {
         const val ARG_POSITION = "position"
