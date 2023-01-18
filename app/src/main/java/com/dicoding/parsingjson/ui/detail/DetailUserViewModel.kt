@@ -86,6 +86,13 @@ class DetailUserViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
+    fun deleteFavoriteUser(item: DetailUserResponse?){
+        viewModelScope.launch {
+            val user = FavoriteUser(username = item?.login.toString(), avatarUrl = item?.avatarUrl)
+            userRepository.deleteFavorite(user)
+        }
+    }
+
     fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUser>{
         return userRepository.getFavoriteUserByUsername(username)
     }
