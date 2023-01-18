@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.databinding.FragmentFollowBinding
-import com.dicoding.parsingjson.model.ItemsItem
+import com.dicoding.parsingjson.data.model.ItemsItem
+import com.dicoding.parsingjson.ui.ViewModelFactory
 import com.dicoding.parsingjson.ui.list.UserAdapter
 
 
@@ -16,7 +17,9 @@ class FollowFragment : Fragment() {
     private var position: Int? = null
     private var username: String? = null
     private lateinit var binding: FragmentFollowBinding
-    private val detailViewModel by viewModels<DetailUserViewModel>()
+    private val detailViewModel by viewModels<DetailUserViewModel>{
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,8 +1,8 @@
-package com.dicoding.parsingjson.network
+package com.dicoding.parsingjson.data.network
 
-import com.dicoding.parsingjson.model.DetailUserResponse
-import com.dicoding.parsingjson.model.GithubResponse
-import com.dicoding.parsingjson.model.ItemsItem
+import com.dicoding.parsingjson.data.model.DetailUserResponse
+import com.dicoding.parsingjson.data.model.GithubResponse
+import com.dicoding.parsingjson.data.model.ItemsItem
 import retrofit2.Call
 import retrofit2.http.*
 

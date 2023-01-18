@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.parsingjson.databinding.ItemListUserBinding
-import com.dicoding.parsingjson.model.ItemsItem
+import com.dicoding.parsingjson.data.model.ItemsItem
 import com.dicoding.parsingjson.ui.detail.DetailUserActivity
 
 class UserAdapter(private val users: List<ItemsItem>) :

@@ -3,9 +3,9 @@ package com.dicoding.parsingjson.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.parsingjson.model.GithubResponse
-import com.dicoding.parsingjson.model.ItemsItem
-import com.dicoding.parsingjson.network.ApiConfig
+import com.dicoding.parsingjson.data.model.GithubResponse
+import com.dicoding.parsingjson.data.model.ItemsItem
+import com.dicoding.parsingjson.data.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

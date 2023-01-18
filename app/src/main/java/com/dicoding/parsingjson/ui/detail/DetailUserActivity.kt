@@ -1,20 +1,29 @@
 package com.dicoding.parsingjson.ui.detail
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.SearchView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.parsingjson.R
+import com.dicoding.parsingjson.data.model.DetailUserResponse
 import com.dicoding.parsingjson.databinding.ActivityDetailUserBinding
+import com.dicoding.parsingjson.ui.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
+    private var detailUser: DetailUserResponse? = null
     private lateinit var binding: ActivityDetailUserBinding
-    private val detailViewModel by viewModels<DetailUserViewModel>()
+    private val detailViewModel by viewModels<DetailUserViewModel>(){
+        ViewModelFactory.getInstance(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +38,7 @@ class DetailUserActivity : AppCompatActivity() {
             val username = intent.getStringExtra(EXTRA_USERNAME).toString()
             detailViewModel.getDetailByUsername(username)
             detailViewModel.detailUser.observe(this) { user ->
+                detailUser = user
                 Glide.with(this)
                     .load(user.avatarUrl)
                     .circleCrop()
@@ -47,6 +57,10 @@ class DetailUserActivity : AppCompatActivity() {
             TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                 tab.text = resources.getString(TAB_TITLES[position])
             }.attach()
+
+            binding.fab.setOnClickListener {
+                detailViewModel.addFavoriteUser(detailUser)
+            }
         }
     }
 

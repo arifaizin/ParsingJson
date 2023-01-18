@@ -1,4 +1,4 @@
-package com.dicoding.parsingjson.network
+package com.dicoding.parsingjson.data.network
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

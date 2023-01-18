@@ -15,7 +15,8 @@
             android:name=".ui.detail.DetailUserActivity"
             android:exported="false" >
         </activity>
-        <activity android:name=".ui.list.MainActivity" >
+        <activity android:name=".ui.list.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

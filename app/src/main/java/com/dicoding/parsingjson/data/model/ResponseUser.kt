@@ -1,4 +1,4 @@
-package com.dicoding.parsingjson.model
+package com.dicoding.parsingjson.data.model
 
 import com.google.gson.annotations.SerializedName
 

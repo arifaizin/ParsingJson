@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.dicoding.parsingjson"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -57,4 +57,12 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    implementation 'androidx.room:room-runtime:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
+
+    //coroutine support
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1" //viewModelScope
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1" //liveData
+    implementation "androidx.room:room-ktx:2.4.3"
 }
