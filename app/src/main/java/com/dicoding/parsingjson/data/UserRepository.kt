@@ -1,5 +1,6 @@
 package com.dicoding.parsingjson.data
 
+import androidx.lifecycle.LiveData
 import com.dicoding.parsingjson.data.database.FavoriteUser
 import com.dicoding.parsingjson.data.database.UserDao
 import com.dicoding.parsingjson.data.model.ItemsItem
@@ -11,6 +12,10 @@ class UserRepository private constructor(
 ) {
     suspend fun addFavorite(item: FavoriteUser) {
         userDao.insert(item)
+    }
+
+    fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUser> {
+        return userDao.getFavoriteUserByUsername(username)
     }
 
     suspend fun deleteFavorite(item: FavoriteUser) {

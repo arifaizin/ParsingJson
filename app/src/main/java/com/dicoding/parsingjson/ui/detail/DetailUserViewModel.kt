@@ -85,4 +85,8 @@ class DetailUserViewModel(private val userRepository: UserRepository) : ViewMode
             userRepository.addFavorite(user)
         }
     }
+
+    fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUser>{
+        return userRepository.getFavoriteUserByUsername(username)
+    }
 }

@@ -61,6 +61,14 @@ class DetailUserActivity : AppCompatActivity() {
             binding.fab.setOnClickListener {
                 detailViewModel.addFavoriteUser(detailUser)
             }
+
+            detailViewModel.getFavoriteUserByUsername(username).observe(this){ favUser ->
+                if (favUser != null){
+                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
+                } else {
+                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                }
+            }
         }
     }
 
