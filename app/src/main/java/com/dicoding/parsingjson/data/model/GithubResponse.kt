@@ -13,7 +13,7 @@ data class GithubResponse(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<ItemsItem?>? = null
+	val items: List<ItemsItem> = listOf()
 )
 
 data class ItemsItem(

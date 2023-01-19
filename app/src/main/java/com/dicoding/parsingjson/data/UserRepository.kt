@@ -3,13 +3,20 @@ package com.dicoding.parsingjson.data
 import androidx.lifecycle.LiveData
 import com.dicoding.parsingjson.data.database.FavoriteUser
 import com.dicoding.parsingjson.data.database.UserDao
+import com.dicoding.parsingjson.data.model.GithubResponse
 import com.dicoding.parsingjson.data.model.ItemsItem
 import com.dicoding.parsingjson.data.network.ApiService
+import retrofit2.http.Query
 
 class UserRepository private constructor(
     private val apiService: ApiService,
     private val userDao: UserDao,
 ) {
+
+    suspend fun getListUsers(query: String): GithubResponse {
+        return apiService.getListUsers(query)
+    }
+
     suspend fun addFavorite(item: FavoriteUser) {
         userDao.insert(item)
     }

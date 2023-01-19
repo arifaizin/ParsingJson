@@ -3,44 +3,34 @@ package com.dicoding.parsingjson.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.parsingjson.data.model.GithubResponse
+import androidx.lifecycle.viewModelScope
+import com.dicoding.parsingjson.data.UserRepository
 import com.dicoding.parsingjson.data.model.ItemsItem
-import com.dicoding.parsingjson.data.network.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
-sealed interface MarsUiState {
-    data class Success(val photos: String) : MarsUiState
-    object Error : MarsUiState
-    object Loading : MarsUiState
+sealed interface UserUiState {
+    data class Success(val listUser: List<ItemsItem>) : UserUiState
+    object Error : UserUiState
+    object Loading : UserUiState
 }
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    private val _listReview = MutableLiveData<List<ItemsItem>>()
-    val listReview: LiveData<List<ItemsItem>> = _listReview
+    private val _uiState = MutableLiveData<UserUiState>()
+    val uiState: LiveData<UserUiState> = _uiState
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
     init {
         searchUser("arif")
     }
 
     fun searchUser(query: String) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getListUsers(query)
-        client.enqueue(object : Callback<GithubResponse> {
-            override fun onResponse(call: Call<GithubResponse>, response: Response<GithubResponse>) {
-                if (response.isSuccessful) {
-                    _listReview.value = response.body()?.items as List<ItemsItem>
-                    _isLoading.value = false
-                }
+        viewModelScope.launch {
+            _uiState.value = UserUiState.Loading
+            try {
+                _uiState.value = UserUiState.Success(userRepository.getListUsers(query).items)
+            } catch (e: Exception) {
+                _uiState.value = UserUiState.Error
             }
-
-            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                _isLoading.value = false
-            }
-        })
+        }
     }
 }

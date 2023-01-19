@@ -7,13 +7,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.R
 import com.dicoding.parsingjson.databinding.ActivityMainBinding
 import com.dicoding.parsingjson.ui.UserAdapter
+import com.dicoding.parsingjson.ui.ViewModelFactory
+import com.dicoding.parsingjson.ui.detail.DetailUserViewModel
 import com.dicoding.parsingjson.ui.favorite.FavoriteUserActivity
 
 
@@ -21,14 +25,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: UserAdapter
-    private lateinit var mainViewModel: MainViewModel
+
+    private val mainViewModel by viewModels<MainViewModel>(){
+        ViewModelFactory.getInstance(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         adapter = UserAdapter(arrayListOf())
 
@@ -36,11 +41,21 @@ class MainActivity : AppCompatActivity() {
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
         binding.rvUsers.adapter = adapter
 
-        mainViewModel.listReview.observe(this) { users ->
-            binding.rvUsers.adapter = UserAdapter(users)
-        }
-        mainViewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        mainViewModel.uiState.observe(this) { uiState ->
+            when(uiState){
+                is UserUiState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is UserUiState.Success -> {
+                    binding.rvUsers.adapter = UserAdapter(uiState.listUser)
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorText.visibility = View.GONE
+                }
+                is UserUiState.Error -> {
+                    binding.errorText.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
         }
     }
 
