@@ -8,6 +8,7 @@ import com.dicoding.parsingjson.di.Injection
 import com.dicoding.parsingjson.ui.detail.DetailUserViewModel
 import com.dicoding.parsingjson.ui.favorite.FavoriteUserViewModel
 import com.dicoding.parsingjson.ui.list.MainViewModel
+import com.dicoding.parsingjson.ui.setting.SettingViewModel
 
 class ViewModelFactory private constructor(private val userRepository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -32,6 +33,8 @@ class ViewModelFactory private constructor(private val userRepository: UserRepos
             return DetailUserViewModel(userRepository) as T
         } else if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
             return FavoriteUserViewModel(userRepository) as T
+        } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
+            return SettingViewModel(userRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

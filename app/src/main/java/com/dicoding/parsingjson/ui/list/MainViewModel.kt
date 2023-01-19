@@ -1,9 +1,6 @@
 package com.dicoding.parsingjson.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dicoding.parsingjson.data.UserRepository
 import com.dicoding.parsingjson.data.model.ItemsItem
 import kotlinx.coroutines.launch
@@ -32,5 +29,9 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
                 _uiState.value = UserUiState.Error
             }
         }
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return userRepository.getThemeSetting().asLiveData()
     }
 }

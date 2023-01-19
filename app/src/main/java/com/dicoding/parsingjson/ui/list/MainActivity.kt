@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.dicoding.parsingjson.ui.UserAdapter
 import com.dicoding.parsingjson.ui.ViewModelFactory
 import com.dicoding.parsingjson.ui.detail.DetailUserViewModel
 import com.dicoding.parsingjson.ui.favorite.FavoriteUserActivity
+import com.dicoding.parsingjson.ui.setting.SettingActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,6 +59,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        mainViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -82,6 +92,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.favorite){
             startActivity(Intent(this@MainActivity, FavoriteUserActivity::class.java))
+        } else if (item.itemId == R.id.setting){
+            startActivity(Intent(this@MainActivity, SettingActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

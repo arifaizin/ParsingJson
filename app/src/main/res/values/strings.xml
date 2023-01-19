@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Github User</string>
+    <string name="app_name">My Github User</string>
     <string name="avatar">Avatar</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -11,4 +11,6 @@
     <string name="add_remove_favorite">Add/remove Favorite</string>
     <string name="favorite_page">Favorite Page</string>
     <string name="something_went_wrong">Something went wrong!</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="setting_page">Setting</string>
 </resources>
