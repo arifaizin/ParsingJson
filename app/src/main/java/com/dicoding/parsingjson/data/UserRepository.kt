@@ -22,6 +22,10 @@ class UserRepository private constructor(
         userDao.delete(item)
     }
 
+    fun getFavoriteUser(): LiveData<List<FavoriteUser>>{
+        return userDao.getFavoriteUser()
+    }
+
     companion object {
         @Volatile
         private var instance: UserRepository? = null

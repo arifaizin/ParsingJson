@@ -2,8 +2,10 @@ package com.dicoding.parsingjson.ui.list
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -11,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.R
 import com.dicoding.parsingjson.databinding.ActivityMainBinding
+import com.dicoding.parsingjson.ui.UserAdapter
+import com.dicoding.parsingjson.ui.favorite.FavoriteUserActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +62,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.favorite){
+            startActivity(Intent(this@MainActivity, FavoriteUserActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

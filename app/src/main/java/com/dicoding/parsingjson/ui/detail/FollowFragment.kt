@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.parsingjson.databinding.FragmentFollowBinding
 import com.dicoding.parsingjson.data.model.ItemsItem
 import com.dicoding.parsingjson.ui.ViewModelFactory
-import com.dicoding.parsingjson.ui.list.UserAdapter
+import com.dicoding.parsingjson.ui.UserAdapter
 
 
 class FollowFragment : Fragment() {

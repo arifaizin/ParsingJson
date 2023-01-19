@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.parsingjson.data.UserRepository
 import com.dicoding.parsingjson.di.Injection
 import com.dicoding.parsingjson.ui.detail.DetailUserViewModel
+import com.dicoding.parsingjson.ui.favorite.FavoriteUserViewModel
 import com.dicoding.parsingjson.ui.list.MainViewModel
 
 class ViewModelFactory private constructor(private val userRepository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -29,6 +30,8 @@ class ViewModelFactory private constructor(private val userRepository: UserRepos
             return MainViewModel() as T
         } else if (modelClass.isAssignableFrom(DetailUserViewModel::class.java)) {
             return DetailUserViewModel(userRepository) as T
+        } else if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
+            return FavoriteUserViewModel(userRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

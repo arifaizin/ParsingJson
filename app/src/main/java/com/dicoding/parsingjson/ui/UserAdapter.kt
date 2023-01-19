@@ -1,4 +1,4 @@
-package com.dicoding.parsingjson.ui.list
+package com.dicoding.parsingjson.ui
 
 import android.content.Intent
 import android.view.LayoutInflater

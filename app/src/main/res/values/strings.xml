@@ -9,4 +9,5 @@
     <string name="title_followers">Followers</string>
     <string name="title_following">Following</string>
     <string name="add_remove_favorite">Add/remove Favorite</string>
+    <string name="favorite_page">Favorite Page</string>
 </resources>
